@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Upload</title>
+</head>
+<body>
+
+<h2>Upload Resume</h2>
+
+<form action="http://localhost:8080/api/resumes/upload"
+      method="post"
+      enctype="multipart/form-data">
+
+    <input type="text"
+           name="fullName"
+           placeholder="Enter Name">
+
+    <br><br>
+
+    <input type="email"
+           name="email"
+           placeholder="Enter Email">
+
+    <br><br>
+
+    <input type="file"
+           name="file">
+
+    <br><br>
+
+    <button type="submit">
+        Upload
+    </button>
+
+</form>
+
+</body>
+</html>

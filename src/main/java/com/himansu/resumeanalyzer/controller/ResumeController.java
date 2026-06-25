@@ -4,6 +4,7 @@ import com.himansu.resumeanalyzer.entity.Resume;
 import com.himansu.resumeanalyzer.service.AnalysisService;
 import com.himansu.resumeanalyzer.service.PdfService;
 import com.himansu.resumeanalyzer.service.ResumeService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +14,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/api/resumes")
 public class ResumeController {
 
@@ -37,10 +38,11 @@ public class ResumeController {
     }
 
     @PostMapping("/upload")
-    public Resume uploadResume(
+    public String uploadResume(
             @RequestParam("file") MultipartFile file,
             @RequestParam("fullName") String fullName,
-            @RequestParam("email") String email)
+            @RequestParam("email") String email,
+            org.springframework.ui.Model model)
     {
         try
         {
@@ -76,7 +78,11 @@ public class ResumeController {
 
             resume.setAnalysisResult(analysis);
 
-            return resumeService.saveResume(resume);
+            Resume savedResume = resumeService.saveResume(resume);
+
+            model.addAttribute("resume", savedResume);
+
+            return "result";
         }
         catch(Exception e)
         {

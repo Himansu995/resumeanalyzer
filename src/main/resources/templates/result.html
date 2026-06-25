@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Resume Analysis Result</title>
+</head>
+<body>
+
+<h1>Resume Uploaded Successfully</h1>
+
+<p>
+    <strong>Name:</strong>
+    <span th:text="${resume.fullName}"></span>
+</p>
+
+<p>
+    <strong>Email:</strong>
+    <span th:text="${resume.email}"></span>
+</p>
+
+<p>
+    <strong>File:</strong>
+    <span th:text="${resume.resumeFileName}"></span>
+</p>
+
+<h2>Analysis Result</h2>
+
+<pre th:text="${resume.analysisResult}"></pre>
+
+</body>
+</html>

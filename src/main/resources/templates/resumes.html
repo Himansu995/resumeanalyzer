@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>All Resumes</title>
+</head>
+
+<body>
+
+<h1>Uploaded Resumes</h1>
+
+<table border="1">
+
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Score</th>
+    </tr>
+
+    <tr th:each="resume : ${resumes}">
+
+        <td th:text="${resume.fullName}"></td>
+
+        <td th:text="${resume.email}"></td>
+
+        <td th:text="${resume.analysisResult}"></td>
+
+    </tr>
+
+</table>
+
+</body>
+</html>

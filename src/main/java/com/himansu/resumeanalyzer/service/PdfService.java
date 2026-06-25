@@ -6,32 +6,30 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
 
 @Service
 public class PdfService {
 
-    public String extractText(String filePath)
-    {
-        try
-        {
-            File file = new File(filePath);
+    public String extractText(String filePath) {
 
-            PDDocument document =
-                    Loader.loadPDF(file);
+        try {
 
-            PDFTextStripper pdfTextStripper =
-                    new PDFTextStripper();
+            PDDocument document = Loader.loadPDF(new File(filePath));
 
-            String text =
-                    pdfTextStripper.getText(document);
+            PDFTextStripper pdfTextStripper = new PDFTextStripper();
+
+            String text = pdfTextStripper.getText(document);
 
             document.close();
 
             return text;
+
         }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
+        catch (IOException e) {
+
+            throw new RuntimeException("Unable to read PDF", e);
+
         }
     }
 }

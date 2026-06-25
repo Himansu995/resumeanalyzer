@@ -14,7 +14,7 @@
     <tr>
         <th>Name</th>
         <th>Email</th>
-        <th>Score</th>
+        <th>Analysis</th>
     </tr>
 
     <tr th:each="resume : ${resumes}">
@@ -23,7 +23,9 @@
 
         <td th:text="${resume.email}"></td>
 
-        <td th:text="${resume.analysisResult}"></td>
+        <td>
+            <pre th:text="${resume.analysisResult}"></pre>
+        </td>
 
     </tr>
 

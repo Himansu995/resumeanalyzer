@@ -2,49 +2,85 @@ package com.himansu.resumeanalyzer.service;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AnalysisService {
 
-    public String analyze(String text)
+    public String analyzeResume(String extractedText)
     {
-        StringBuilder result = new StringBuilder();
+        String text = extractedText.toLowerCase();
+
+        List<String> foundSkills = new ArrayList<>();
 
         int score = 0;
 
-        if(text.toLowerCase().contains("java"))
+        String[] skills = {
+                "java",
+                "spring",
+                "spring boot",
+                "mysql",
+                "html",
+                "css",
+                "javascript",
+                "python",
+                "c++",
+                "hibernate",
+                "jpa",
+                "bootstrap",
+                "git",
+                "github"
+        };
+
+        for(String skill : skills)
         {
-            result.append("Java Found\n");
-            score += 20;
+            if(text.contains(skill))
+            {
+                foundSkills.add(skill);
+                score += 5;
+            }
         }
 
-        if(text.toLowerCase().contains("spring"))
+        StringBuilder analysis = new StringBuilder();
+
+        analysis.append("===== Resume Analysis =====\n\n");
+
+        analysis.append("Skills Found\n");
+
+        if(foundSkills.isEmpty())
         {
-            result.append("Spring Found\n");
-            score += 20;
+            analysis.append("No matching skills found.\n");
+        }
+        else
+        {
+            for(String skill : foundSkills)
+            {
+                analysis.append("✔ ")
+                        .append(skill)
+                        .append("\n");
+            }
         }
 
-        if(text.toLowerCase().contains("mysql"))
-        {
-            result.append("MySQL Found\n");
-            score += 20;
-        }
+        analysis.append("\n");
 
-        if(text.toLowerCase().contains("html"))
-        {
-            result.append("HTML Found\n");
-            score += 20;
-        }
-
-        if(text.toLowerCase().contains("css"))
-        {
-            result.append("CSS Found\n");
-            score += 20;
-        }
-
-        result.append("\nScore : ")
+        analysis.append("Resume Score : ")
                 .append(score)
-                .append("/100");
+                .append("/100\n");
 
-        return result.toString();
+        if(score >= 60)
+        {
+            analysis.append("\nExcellent Resume");
+        }
+        else if(score >= 40)
+        {
+            analysis.append("\nGood Resume");
+        }
+        else
+        {
+            analysis.append("\nNeeds Improvement");
+        }
+
+        return analysis.toString();
     }
 }

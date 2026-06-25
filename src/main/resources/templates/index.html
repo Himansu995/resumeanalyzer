@@ -1,38 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Resume Analyzer</title>
 </head>
+
 <body>
 
-<h1>Resume Analyzer</h1>
+<h1>Welcome to Resume Analyzer</h1>
 
-<form action="/api/resumes/upload"
-      method="post"
-      enctype="multipart/form-data">
+<p>
+    Upload your resume, analyze your skills, and view the analysis report.
+</p>
 
-    <input type="text"
-           name="fullName"
-           placeholder="Full Name">
+<br>
 
-    <br><br>
+<a href="/upload">
+    <button>Upload Resume</button>
+</a>
 
-    <input type="email"
-           name="email"
-           placeholder="Email">
+<br><br>
 
-    <br><br>
-
-    <input type="file"
-           name="file">
-
-    <br><br>
-
-    <button type="submit">
-        Upload Resume
-    </button>
-
-</form>
+<a href="/resumes">
+    <button>View All Resumes</button>
+</a>
 
 </body>
+
 </html>

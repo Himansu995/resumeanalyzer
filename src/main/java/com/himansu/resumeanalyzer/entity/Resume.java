@@ -17,55 +17,47 @@ public class Resume {
 
     private String resumePath;
 
-    private String analysisResult;
-
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String extractedText;
 
-    public Resume()
-    {
+    @Column(columnDefinition = "TEXT")
+    private String analysisResult;
+
+    public Resume() {
     }
 
-    public Resume(String fullName, String email, String resumeFileName, String resumePath, String analysisResult, String extractedText)
-    {
+    public Resume(String fullName,
+                  String email,
+                  String resumeFileName,
+                  String resumePath,
+                  String extractedText,
+                  String analysisResult) {
+
         this.fullName = fullName;
         this.email = email;
-        this.resumeFileName=resumeFileName;
+        this.resumeFileName = resumeFileName;
         this.resumePath = resumePath;
-        this.analysisResult=analysisResult;
-        this.extractedText=extractedText;
+        this.extractedText = extractedText;
+        this.analysisResult = analysisResult;
     }
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
 
-    public String getFullName()
-    {
+    public String getFullName() {
         return fullName;
     }
 
-    public String getExtractedText() {
-        return extractedText;
-    }
-
-    public void setExtractedText(String extractedText) {
-        this.extractedText = extractedText;
-    }
-
-    public void setFullName(String fullName)
-    {
+    public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
-    public String getEmail()
-    {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -73,12 +65,8 @@ public class Resume {
         return resumeFileName;
     }
 
-    public String getAnalysisResult() {
-        return analysisResult;
-    }
-
-    public void setAnalysisResult(String analysisResult) {
-        this.analysisResult = analysisResult;
+    public void setResumeFileName(String resumeFileName) {
+        this.resumeFileName = resumeFileName;
     }
 
     public String getResumePath() {
@@ -89,7 +77,19 @@ public class Resume {
         this.resumePath = resumePath;
     }
 
-    public void setResumeFileName(String resumeFileName) {
-        this.resumeFileName = resumeFileName;
+    public String getExtractedText() {
+        return extractedText;
+    }
+
+    public void setExtractedText(String extractedText) {
+        this.extractedText = extractedText;
+    }
+
+    public String getAnalysisResult() {
+        return analysisResult;
+    }
+
+    public void setAnalysisResult(String analysisResult) {
+        this.analysisResult = analysisResult;
     }
 }

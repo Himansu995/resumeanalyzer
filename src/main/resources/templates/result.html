@@ -1,30 +1,111 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Resume Analysis Result</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Analysis Result</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
-<body>
 
-<h1>Resume Uploaded Successfully</h1>
+<body class="bg-light">
 
-<p>
-    <strong>Name:</strong>
-    <span th:text="${resume.fullName}"></span>
-</p>
+<nav class="navbar navbar-dark bg-dark shadow">
 
-<p>
-    <strong>Email:</strong>
-    <span th:text="${resume.email}"></span>
-</p>
+    <div class="container">
 
-<p>
-    <strong>File:</strong>
-    <span th:text="${resume.resumeFileName}"></span>
-</p>
+        <a class="navbar-brand fw-bold" href="/">
+            Resume Analyzer
+        </a>
 
-<h2>Analysis Result</h2>
+    </div>
 
-<pre th:text="${resume.analysisResult}"></pre>
+</nav>
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-9">
+
+            <div class="card shadow-lg">
+
+                <div class="card-header bg-success text-white">
+
+                    <h3 class="mb-0">
+                        Resume Uploaded Successfully
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-6">
+
+                            <h5>Name</h5>
+
+                            <p th:text="${resume.fullName}"></p>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <h5>Email</h5>
+
+                            <p th:text="${resume.email}"></p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <h5>Uploaded File</h5>
+
+                        <p th:text="${resume.resumeFileName}"></p>
+
+                    </div>
+
+                    <hr>
+
+                    <h4 class="mb-3">
+                        Resume Analysis
+                    </h4>
+
+                    <div class="alert alert-secondary">
+
+                        <pre class="mb-0" th:text="${resume.analysisResult}"></pre>
+
+                    </div>
+
+                    <div class="mt-4">
+
+                        <a href="/upload" class="btn btn-primary">
+                            Upload Another Resume
+                        </a>
+
+                        <a href="/resumes" class="btn btn-outline-dark">
+                            View Dashboard
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
+
 </html>

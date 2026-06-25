@@ -100,4 +100,21 @@ public class ResumeService {
 
     }
 
+    public void deleteResume(Long id)
+    {
+        Resume resume = resumeRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Resume not found"));
+
+        try
+        {
+            Files.deleteIfExists(Paths.get(resume.getResumePath()));
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+
+        resumeRepo.deleteById(id);
+    }
+
 }

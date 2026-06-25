@@ -2,51 +2,118 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Resume Analyzer</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Upload Resume</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
-<body>
+<body class="bg-light">
 
-<h1>Upload Resume</h1>
+<nav class="navbar navbar-dark bg-dark shadow">
 
-<form
-        action="/uploadResume"
-        method="post"
-        enctype="multipart/form-data">
+    <div class="container">
 
-    <label>Full Name</label>
-    <br>
-    <input
-            type="text"
-            name="fullName"
-            required>
+        <a class="navbar-brand fw-bold" href="/">
+            Resume Analyzer
+        </a>
 
-    <br><br>
+    </div>
 
-    <label>Email</label>
-    <br>
-    <input
-            type="email"
-            name="email"
-            required>
+</nav>
 
-    <br><br>
+<div class="container mt-5">
 
-    <label>Select Resume</label>
-    <br>
-    <input
-            type="file"
-            name="file"
-            accept=".pdf"
-            required>
+    <div class="row justify-content-center">
 
-    <br><br>
+        <div class="col-lg-7">
 
-    <button type="submit">
-        Upload Resume
-    </button>
+            <div class="card shadow-lg">
 
-</form>
+                <div class="card-header bg-primary text-white text-center">
+
+                    <h3>Upload Resume</h3>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form
+                            action="/uploadResume"
+                            method="post"
+                            enctype="multipart/form-data">
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Full Name
+                            </label>
+
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="fullName"
+                                    required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Email
+                            </label>
+
+                            <input
+                                    type="email"
+                                    class="form-control"
+                                    name="email"
+                                    required>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Resume (PDF)
+                            </label>
+
+                            <input
+                                    type="file"
+                                    class="form-control"
+                                    name="file"
+                                    accept=".pdf"
+                                    required>
+
+                        </div>
+
+                        <div class="d-grid">
+
+                            <button
+                                    class="btn btn-success btn-lg"
+                                    type="submit">
+
+                                Upload & Analyze Resume
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
+
 </html>

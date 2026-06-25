@@ -5,6 +5,7 @@ import com.himansu.resumeanalyzer.service.ResumeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,5 +52,13 @@ public class HomeController {
         model.addAttribute("resume", resume);
 
         return "result";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteResume(@PathVariable Long id)
+    {
+        resumeService.deleteResume(id);
+
+        return "redirect:/resumes";
     }
 }

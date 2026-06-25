@@ -2,34 +2,111 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>All Resumes</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Resume Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
-<body>
+<body class="bg-light">
 
-<h1>Uploaded Resumes</h1>
+<nav class="navbar navbar-dark bg-dark shadow">
 
-<table border="1">
+    <div class="container">
 
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Analysis</th>
-    </tr>
+        <a class="navbar-brand fw-bold" href="/">
+            Resume Analyzer
+        </a>
 
-    <tr th:each="resume : ${resumes}">
+        <a href="/upload" class="btn btn-success">
+            Upload Resume
+        </a>
 
-        <td th:text="${resume.fullName}"></td>
+    </div>
 
-        <td th:text="${resume.email}"></td>
+</nav>
 
-        <td>
-            <pre th:text="${resume.analysisResult}"></pre>
-        </td>
+<div class="container mt-5">
 
-    </tr>
+    <div class="card shadow">
 
-</table>
+        <div class="card-header bg-primary text-white">
+
+            <h3 class="mb-0">
+                Resume Dashboard
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-hover table-striped align-middle">
+
+                <thead class="table-dark">
+
+                <tr>
+
+                    <th>#</th>
+
+                    <th>Name</th>
+
+                    <th>Email</th>
+
+                    <th>Resume File</th>
+
+                    <th>Analysis</th>
+                    <th>Action</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="resume, stat : ${resumes}">
+
+                    <td th:text="${stat.count}"></td>
+
+                    <td th:text="${resume.fullName}"></td>
+
+                    <td th:text="${resume.email}"></td>
+
+                    <td th:text="${resume.resumeFileName}"></td>
+
+                    <td>
+
+                        <pre class="mb-0" th:text="${resume.analysisResult}"></pre>
+
+                    </td>
+
+                    <td>
+
+                        <a
+                                th:href="@{/delete/{id}(id=${resume.id})}"
+                                class="btn btn-danger btn-sm">
+
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
+
 </html>

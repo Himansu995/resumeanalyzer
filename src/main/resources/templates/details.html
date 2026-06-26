@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Resume Details</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="/">
+            Resume Analyzer
+        </a>
+
+    </div>
+
+</nav>
+
+<div class="container mt-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3 class="mb-0">
+                Resume Details
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <h5>Name</h5>
+
+            <p th:text="${resume.fullName}"></p>
+
+            <hr>
+
+            <h5>Email</h5>
+
+            <p th:text="${resume.email}"></p>
+
+            <hr>
+
+            <h5>Resume File</h5>
+
+            <p th:text="${resume.resumeFileName}"></p>
+
+            <hr>
+
+            <h5>Analysis</h5>
+
+            <pre class="border rounded p-3 bg-light"
+                 th:text="${resume.analysisResult}">
+            </pre>
+
+            <hr>
+
+            <h5>Extracted Text</h5>
+
+            <pre class="border rounded p-3 bg-light"
+                 style="max-height:400px;overflow:auto;"
+                 th:text="${resume.extractedText}">
+            </pre>
+
+            <div class="mt-4">
+
+                <a href="/resumes"
+                   class="btn btn-secondary">
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

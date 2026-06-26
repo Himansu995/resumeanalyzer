@@ -117,4 +117,19 @@ public class ResumeService {
         resumeRepo.deleteById(id);
     }
 
+    public Resume getResumeById(Long id)
+    {
+        return resumeRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Resume not found"));
+    }
+
+    public List<Resume> searchResume(String keyword)
+    {
+        return resumeRepo
+                .findByFullNameContainingIgnoreCaseOrEmailContainingIgnoreCase(
+                        keyword,
+                        keyword
+                );
+    }
+
 }

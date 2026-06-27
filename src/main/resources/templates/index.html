@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 
     <meta charset="UTF-8">
@@ -11,15 +12,29 @@
 
 </head>
 
-<body class="bg-light">
+<body>
 
-<nav class="navbar navbar-dark bg-dark shadow">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
     <div class="container">
 
-        <a class="navbar-brand fw-bold" href="/">
+        <a class="navbar-brand" href="/">
             Resume Analyzer
         </a>
+
+        <div class="ms-auto">
+
+            <a href="/resumes"
+               class="btn btn-outline-light me-2">
+                Dashboard
+            </a>
+
+            <a href="/logout"
+               class="btn btn-danger">
+                Logout
+            </a>
+
+        </div>
 
     </div>
 
@@ -27,41 +42,70 @@
 
 <div class="container mt-5">
 
-    <div class="text-center mb-5">
+    <div class="card shadow">
 
-        <h1 class="display-4 fw-bold">
-            AI Resume Analyzer
-        </h1>
+        <div class="card-body">
 
-        <p class="text-muted fs-5">
-            Upload your resume, analyze your skills and manage resumes professionally.
-        </p>
+            <h2 class="mb-4">
+                Upload Resume
+            </h2>
 
-    </div>
+            <form
+                    action="/uploadResume"
+                    method="post"
+                    enctype="multipart/form-data">
 
-    <div class="row justify-content-center">
+                <div class="mb-3">
 
-        <div class="col-md-8">
+                    <label class="form-label">
+                        Full Name
+                    </label>
 
-            <div class="card shadow">
-
-                <div class="card-body text-center p-5">
-
-                    <h3 class="mb-4">
-                        Get Started
-                    </h3>
-
-                    <a href="/upload" class="btn btn-primary btn-lg me-3">
-                        Upload Resume
-                    </a>
-
-                    <a href="/resumes" class="btn btn-outline-dark btn-lg">
-                        View Dashboard
-                    </a>
+                    <input
+                            type="text"
+                            name="fullName"
+                            class="form-control"
+                            required>
 
                 </div>
 
-            </div>
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Email
+                    </label>
+
+                    <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Resume (PDF)
+                    </label>
+
+                    <input
+                            type="file"
+                            name="file"
+                            accept=".pdf"
+                            class="form-control"
+                            required>
+
+                </div>
+
+                <button
+                        class="btn btn-primary">
+
+                    Upload Resume
+
+                </button>
+
+            </form>
 
         </div>
 
@@ -70,4 +114,5 @@
 </div>
 
 </body>
+
 </html>

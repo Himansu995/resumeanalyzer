@@ -20,7 +20,7 @@ public class Resume {
     @Column(columnDefinition = "LONGTEXT")
     private String extractedText;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String analysisResult;
 
     public Resume() {

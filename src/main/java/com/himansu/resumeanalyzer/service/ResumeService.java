@@ -5,12 +5,8 @@ import com.himansu.resumeanalyzer.repository.ResumeRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 @Service
 public class ResumeService {
@@ -21,14 +17,18 @@ public class ResumeService {
 
     private final AnalysisService analysisService;
 
+    private final CloudinaryService cloudinaryService;
+
     public ResumeService(
             ResumeRepo resumeRepo,
             PdfService pdfService,
-            AnalysisService analysisService)
+            AnalysisService analysisService,
+            CloudinaryService cloudinaryService)
     {
         this.resumeRepo = resumeRepo;
         this.pdfService = pdfService;
         this.analysisService = analysisService;
+        this.cloudinaryService = cloudinaryService;
     }
 
     public Resume saveResume(Resume resume)
@@ -50,31 +50,14 @@ public class ResumeService {
         try
         {
 
-            Path uploadPath = Paths.get("uploads");
-
-            if(!Files.exists(uploadPath))
-            {
-                Files.createDirectories(uploadPath);
-            }
-
-            String uniqueFileName =
-                    UUID.randomUUID() + "_"
-                            + file.getOriginalFilename();
-
-            Path filePath =
-                    uploadPath.resolve(uniqueFileName);
-
-            Files.copy(
-                    file.getInputStream(),
-                    filePath,
-                    StandardCopyOption.REPLACE_EXISTING
-            );
-
             String extractedText =
-                    pdfService.extractText(filePath.toString());
+                    pdfService.extractText(file);
 
             String analysis =
                     analysisService.analyzeResume(extractedText);
+
+            Map<String, String> cloudinaryResult =
+                    cloudinaryService.uploadFile(file);
 
             Resume resume = new Resume();
 
@@ -84,7 +67,13 @@ public class ResumeService {
 
             resume.setResumeFileName(file.getOriginalFilename());
 
-            resume.setResumePath(filePath.toString());
+            resume.setResumePath(
+                    cloudinaryResult.get("url")
+            );
+
+            resume.setCloudinaryPublicId(
+                    cloudinaryResult.get("publicId")
+            );
 
             resume.setExtractedText(extractedText);
 
@@ -102,25 +91,24 @@ public class ResumeService {
 
     public void deleteResume(Long id)
     {
+
         Resume resume = resumeRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Resume not found"));
+                .orElseThrow(() ->
+                        new RuntimeException("Resume not found"));
 
-        try
-        {
-            Files.deleteIfExists(Paths.get(resume.getResumePath()));
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
+        cloudinaryService.deleteFile(
+                resume.getCloudinaryPublicId()
+        );
 
-        resumeRepo.deleteById(id);
+        resumeRepo.delete(resume);
+
     }
 
     public Resume getResumeById(Long id)
     {
         return resumeRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Resume not found"));
+                .orElseThrow(() ->
+                        new RuntimeException("Resume not found"));
     }
 
     public List<Resume> searchResume(String keyword)

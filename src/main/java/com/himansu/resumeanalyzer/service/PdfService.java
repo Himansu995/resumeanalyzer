@@ -4,32 +4,43 @@ import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 
 @Service
 public class PdfService {
 
-    public String extractText(String filePath) {
+    public String extractText(MultipartFile file)
+    {
 
-        try {
+        try
+        {
 
-            PDDocument document = Loader.loadPDF(new File(filePath));
+            PDDocument document =
+                    Loader.loadPDF(file.getBytes());
 
-            PDFTextStripper pdfTextStripper = new PDFTextStripper();
+            PDFTextStripper pdfTextStripper =
+                    new PDFTextStripper();
 
-            String text = pdfTextStripper.getText(document);
+            String text =
+                    pdfTextStripper.getText(document);
 
             document.close();
 
             return text;
 
         }
-        catch (IOException e) {
+        catch (IOException e)
+        {
 
-            throw new RuntimeException("Unable to read PDF", e);
+            throw new RuntimeException(
+                    "Unable to read PDF",
+                    e
+            );
 
         }
+
     }
+
 }

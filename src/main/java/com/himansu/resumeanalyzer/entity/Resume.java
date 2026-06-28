@@ -17,6 +17,8 @@ public class Resume {
 
     private String resumePath;
 
+    private String cloudinaryPublicId;
+
     @Column(columnDefinition = "LONGTEXT")
     private String extractedText;
 
@@ -30,6 +32,7 @@ public class Resume {
                   String email,
                   String resumeFileName,
                   String resumePath,
+                  String cloudinaryPublicId,
                   String extractedText,
                   String analysisResult) {
 
@@ -37,6 +40,7 @@ public class Resume {
         this.email = email;
         this.resumeFileName = resumeFileName;
         this.resumePath = resumePath;
+        this.cloudinaryPublicId = cloudinaryPublicId;
         this.extractedText = extractedText;
         this.analysisResult = analysisResult;
     }
@@ -75,6 +79,14 @@ public class Resume {
 
     public void setResumePath(String resumePath) {
         this.resumePath = resumePath;
+    }
+
+    public String getCloudinaryPublicId() {
+        return cloudinaryPublicId;
+    }
+
+    public void setCloudinaryPublicId(String cloudinaryPublicId) {
+        this.cloudinaryPublicId = cloudinaryPublicId;
     }
 
     public String getExtractedText() {

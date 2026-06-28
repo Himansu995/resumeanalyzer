@@ -2,21 +2,14 @@ package com.himansu.resumeanalyzer.controller;
 
 import com.himansu.resumeanalyzer.entity.Resume;
 import com.himansu.resumeanalyzer.service.ResumeService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Controller
 public class HomeController {
@@ -40,7 +33,7 @@ public class HomeController {
             Model model)
     {
 
-        if(keyword == null || keyword.isBlank())
+        if (keyword == null || keyword.isBlank())
         {
             model.addAttribute(
                     "resumes",
@@ -71,7 +64,12 @@ public class HomeController {
             @RequestParam("email") String email,
             Model model)
     {
-        Resume resume = resumeService.uploadResume(file, fullName, email);
+
+        Resume resume = resumeService.uploadResume(
+                file,
+                fullName,
+                email
+        );
 
         model.addAttribute("resume", resume);
 
@@ -81,6 +79,7 @@ public class HomeController {
     @GetMapping("/delete/{id}")
     public String deleteResume(@PathVariable Long id)
     {
+
         resumeService.deleteResume(id);
 
         return "redirect:/resumes";
@@ -94,18 +93,21 @@ public class HomeController {
         {
             Resume resume = resumeService.getResumeById(id);
 
-            Path path = Paths.get(resume.getResumePath());
-
-            Resource resource = new UrlResource(path.toUri());
+            Resource resource =
+                    new UrlResource(resume.getResumePath());
 
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                    .header(
+                            HttpHeaders.CONTENT_DISPOSITION,
                             "attachment; filename=\"" +
                                     resume.getResumeFileName() + "\"")
+                    .header(
+                            HttpHeaders.CONTENT_TYPE,
+                            "application/pdf")
                     .body(resource);
 
         }
-        catch (MalformedURLException e)
+        catch (Exception e)
         {
             throw new RuntimeException(e);
         }
@@ -116,10 +118,12 @@ public class HomeController {
             @PathVariable Long id,
             Model model)
     {
+
         Resume resume = resumeService.getResumeById(id);
 
         model.addAttribute("resume", resume);
 
         return "details";
     }
+
 }
